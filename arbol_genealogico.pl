@@ -215,3 +215,12 @@ es_suegra_de(A,B):-es_mama_de(A,C),(es_esposo_de(B,C);es_esposa_de(B,C)).
 
 es_tio_politico_de(A,B):-es_tia_de(C,B),es_esposo_de(A,C).
 es_tia_politica_de(A,B):-es_tio_de(C,B),es_esposa_de(A,C).
+
+/* Adicional, visto que no se implemento es_esposo_de() como funcion, se añadiran las relaciones de padrastro, madrastra, hijastro
+   e hijastra */
+
+es_padrastro_de(A,B):-es_esposo_de(A,C),es_mama_de(C,B).
+es_madrastra_de(A,B):-es_esposa_de(A,C),es_papa_de(C,B).
+
+es_hijastro_de(A,B):-es_hombre(A),(es_padrastro_de(B,A);es_madrastra_de(B,A)).
+es_hijastra_de(A,B):-es_mujer(A),(es_padrastro_de(B,A);es_madrastra_de(B,A)).
