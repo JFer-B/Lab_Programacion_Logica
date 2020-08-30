@@ -164,5 +164,21 @@ es_abuela_de(A,B):-es_mama_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
 es_nieto_de(A,B):-es_hombre(A),(es_abuelo_de(B,A);es_abuela_de(B,A)).
 es_nieta_de(A,B):-es_mujer(A),(es_abuelo_de(B,A);es_abuela_de(B,A)).
 
-es_hermano_de(A,B):-es_hijo_de(A,C),(es_hijo_de(B,C);es_hija_de(B,C)),not(A=B).
+es_hermano_de(A,B):-es_hijo_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)),not(A=B).
 es_hermana_de(A,B):-es_hija_de(A,C),(es_hijo_de(B,C);es_hija_de(B,C)),not(A=B).
+
+/* 3. Segunda línea de sangre. */
+
+es_ancestro_de(A,B):-es_papa_de(A,B);es_mama_de(A,B).
+es_ancestro_de(A,B):-(es_papa_de(A,C);es_mama_de(A,C)),es_ancestro_de(C,B).
+
+es_descendiente_de(A,B):-es_ancestro_de(B,A).
+
+es_tio_de(A,B):-es_hermano_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
+es_tia_de(A,B):-es_hermana_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
+
+es_sobrino_de(A,B):-es_hombre(A),(es_tio_de(B,A);es_tia_de(B,A)).
+es_sobrina_de(A,B):-es_mujer(A),(es_tio_de(B,A);es_tia_de(B,A)).
+
+es_primo_de(A,B):-es_sobrino_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
+es_prima_de(A,B):-es_sobrina_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
