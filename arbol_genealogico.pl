@@ -152,6 +152,20 @@ es_mama_de(amparo, diana).
 es_mama_de(amparo, sergio).
 es_mama_de(marina, fernando).
 
+es_esposo_de(alexander, jenny).
+es_esposo_de(robert, yadira).
+es_esposo_de(jimmy, alexandra).
+es_esposo_de(mayer, andreina).
+es_esposo_de(javier, nataly).
+es_esposo_de(alberto_g, calletana).
+es_esposo_de(juan_de_dios, rosabelia).
+es_esposo_de(alberto, maria).
+es_esposo_de(jesus, marina).
+es_esposo_de(felipe, evelina).
+es_esposo_de(pedro, marina_b).
+es_esposo_de(carlos, claudia).
+es_esposo_de(rodolfo, amparo).
+
 /* 2. A partir de este árbol, realice los diferentes hechos y reglas necesarias para determinar las relaciones
    hijo, hija, abuelo, abuela, nieto, nieta, hermano y hermana*/
 
@@ -182,3 +196,22 @@ es_sobrina_de(A,B):-es_mujer(A),(es_tio_de(B,A);es_tia_de(B,A)).
 
 es_primo_de(A,B):-es_sobrino_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
 es_prima_de(A,B):-es_sobrina_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
+
+
+/* 4. Establecer las relaciones de esposo, esposa, cuñado, cuñada,suegro, suegra,
+   tio politico y tia politica */
+
+/* Dado que no se contempla la opción de ex-pareja y, al haber varios hijos de estas relaciones que no se pueden considerar esposo
+   y esposa, puede haber errores de logica para el desarrollo de este punto, por lo tanto las función es_esposo_de() será una
+   regla entre las lineas */
+
+es_esposa_de(A,B):-es_mujer(A),es_esposo_de(B,A).
+
+es_cunado_de(A,B):-(es_hermano_de(A,C),(es_esposo_de(B,C);es_esposa_de(B,C)));(es_esposo_de(A,C),(es_hermano_de(B,C);es_hermana_de(B,C))).
+es_cunada_de(A,B):-(es_hermana_de(A,C),(es_esposo_de(B,C);es_esposa_de(B,C)));(es_esposa_de(A,C),(es_hermano_de(B,C);es_hermana_de(B,C))).
+
+es_suegro_de(A,B):-es_papa_de(A,C),(es_esposo_de(B,C);es_esposa_de(B,C)).
+es_suegra_de(A,B):-es_mama_de(A,C),(es_esposo_de(B,C);es_esposa_de(B,C)).
+
+es_tio_politico_de(A,B):-es_tia_de(C,B),es_esposo_de(A,C).
+es_tia_politica_de(A,B):-es_tio_de(C,B),es_esposa_de(A,C).
