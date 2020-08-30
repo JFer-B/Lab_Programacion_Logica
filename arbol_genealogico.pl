@@ -179,7 +179,7 @@ es_nieto_de(A,B):-es_hombre(A),(es_abuelo_de(B,A);es_abuela_de(B,A)).
 es_nieta_de(A,B):-es_mujer(A),(es_abuelo_de(B,A);es_abuela_de(B,A)).
 
 es_hermano_de(A,B):-es_hijo_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)),not(A=B).
-es_hermana_de(A,B):-es_hija_de(A,C),(es_hijo_de(B,C);es_hija_de(B,C)),not(A=B).
+es_hermana_de(A,B):-es_hija_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)),not(A=B).
 
 /* 3. Segunda línea de sangre. */
 
