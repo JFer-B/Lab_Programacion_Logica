@@ -152,6 +152,17 @@ es_mama_de(amparo, diana).
 es_mama_de(amparo, sergio).
 es_mama_de(marina, fernando).
 
-/* 2. A partir de este árbol, realice los diferentes hechos y reglas necesarias para determinar:*/
+/* 2. A partir de este árbol, realice los diferentes hechos y reglas necesarias para determinar las relaciones
+   hijo, hija, abuelo, abuela, nieto, nieta, hermano y hermana*/
 
-es_hijo_de(A,B):-es_hombre(A),(es_padre(B,A); es_madre(B,A)).
+es_hijo_de(A,B):-es_hombre(A),(es_papa_de(B,A); es_mama_de(B,A)).
+es_hija_de(A,B):-es_mujer(A),(es_papa_de(B,A); es_mama_de(B,A)).
+
+es_abuelo_de(A,B):-es_papa_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
+es_abuela_de(A,B):-es_mama_de(A,C),(es_papa_de(C,B);es_mama_de(C,B)).
+
+es_nieto_de(A,B):-es_hombre(A),(es_abuelo_de(B,A);es_abuela_de(B,A)).
+es_nieta_de(A,B):-es_mujer(A),(es_abuelo_de(B,A);es_abuela_de(B,A)).
+
+es_hermano_de(A,B):-es_hijo_de(A,C),(es_hijo_de(B,C);es_hija_de(B,C)),not(A=B).
+es_hermana_de(A,B):-es_hija_de(A,C),(es_hijo_de(B,C);es_hija_de(B,C)),not(A=B).
