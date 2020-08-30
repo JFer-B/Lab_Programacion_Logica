@@ -219,8 +219,8 @@ es_tia_politica_de(A,B):-es_tio_de(C,B),es_esposa_de(A,C).
 /* Adicional, visto que no se implemento es_esposo_de() como funcion, se añadiran las relaciones de padrastro, madrastra, hijastro
    e hijastra */
 
-es_padrastro_de(A,B):-es_esposo_de(A,C),es_mama_de(C,B).
-es_madrastra_de(A,B):-es_esposa_de(A,C),es_papa_de(C,B).
+es_padrastro_de(A,B):-es_esposo_de(A,C),es_mama_de(C,B),not(es_papa_de(A,B)).
+es_madrastra_de(A,B):-es_esposa_de(A,C),es_papa_de(C,B),not(es_mama_de(A,B)).
 
 es_hijastro_de(A,B):-es_hombre(A),(es_padrastro_de(B,A);es_madrastra_de(B,A)).
 es_hijastra_de(A,B):-es_mujer(A),(es_padrastro_de(B,A);es_madrastra_de(B,A)).
