@@ -152,3 +152,6 @@ es_mama_de(amparo, diana).
 es_mama_de(amparo, sergio).
 es_mama_de(marina, fernando).
 
+/* 2. A partir de este árbol, realice los diferentes hechos y reglas necesarias para determinar:*/
+
+es_hijo_de(A,B):-es_hombre(A),(es_padre(B,A); es_madre(B,A)).
