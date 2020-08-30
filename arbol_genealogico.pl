@@ -151,3 +151,4 @@ es_mama_de(marina, rodolfo).
 es_mama_de(amparo, diana).
 es_mama_de(amparo, sergio).
 es_mama_de(marina, fernando).
+
